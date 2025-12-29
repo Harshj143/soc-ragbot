@@ -67,6 +67,42 @@ SOC RAGBot is an advanced AI-powered Security Operations Center (SOC) assistant 
 
 ---
 
+## 📂 Customizing Your Data
+
+You can easily plug in your own security data to customize the agent's knowledge:
+
+### 1. Add Playbooks & Knowledge
+Place Markdown (`.md`) or JSON playbook files in:
+`backend/data/knowledge/`
+The agent uses these for policies, mitigation steps, and internal procedures.
+
+### 2. Add raw Logs for Analysis
+Place your raw server or application logs in:
+`backend/data/logs.json`
+The `LogAnalyzer` service extracts IPs and patterns from these files during investigation.
+
+---
+
+## 📥 Data Ingestion (Vectorization)
+
+To convert your documents into searchable vector forms, you have two options:
+
+### Option A: Automatic via API (Recommended)
+Once the backend is running, you can trigger a full re-ingestion by sending a POST request to the `/ingest` endpoint (Admin ONLY):
+```bash
+# This will scan backend/data/knowledge/ and update the vector store
+curl -X POST http://localhost:8000/ingest -H "Authorization: Bearer <ADMIN_TOKEN>"
+```
+
+### Option B: Manual Script
+You can also trigger ingestion manually via the Python script:
+```bash
+cd backend
+python3 rag_engine.py
+```
+
+---
+
 ## 🔒 Security & Privacy
 - **Stateless Agent**: The investigator agent isolates state per-query to prevent cross-contamination of sessions.
 - **Zero-Trust Input**: All user inputs are treated as data, never as control instructions.
