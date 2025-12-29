@@ -1,0 +1,15 @@
+fastapi
+uvicorn
+langchain
+langchain-community
+langchain-openai
+chromadb
+pydantic
+python-dotenv
+tiktoken
+python-multipart
+langgraph
+typing-extensions
+python-jose[cryptography]
+passlib[bcrypt]
+slowapi

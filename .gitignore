@@ -1,0 +1,27 @@
+# Environment Variables
+.env
+.env.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+env/
+venv/
+.venv/
+.env/
+
+# Data and Persistence (Sensitive)
+backend/data/
+backend/persist/
+data/cache.db
+data/audit_log.json
+
+# Node.js
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/build/
+
+# Mac
+.DS_Store
