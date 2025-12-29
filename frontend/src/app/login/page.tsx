@@ -142,7 +142,6 @@ export default function LoginPage() {
                 </form>
 
                 <div style={{ marginTop: '2rem', color: 'var(--text-dim)', fontSize: '0.8rem' }}>
-                    Protected by Antigravity Defense Systems
                 </div>
             </div>
         </div>
