@@ -45,7 +45,8 @@ async def health_check():
     return {"status": "healthy"}
 
 @app.post("/login", response_model=Token)
-async def login(form_data: OAuth2PasswordRequestForm = Depends()):
+@limiter.limit("10/minute")
+async def login(request: Request, form_data: OAuth2PasswordRequestForm = Depends()):
     user_dict = USERS_DB.get(form_data.username)
     if not user_dict or not verify_password(form_data.password, user_dict["password_hash"]):
         raise HTTPException(
@@ -75,7 +76,8 @@ async def query_endpoint(request: Request, query_data: QueryRequest, current_use
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/ingest")
-async def ingest_endpoint(current_user: User = Depends(check_admin_role)):
+@limiter.limit("2/minute")
+async def ingest_endpoint(request: Request, current_user: User = Depends(check_admin_role)):
     try:
         rag_engine.ingest_documents()
         return {"message": "Documents ingested successfully"}
